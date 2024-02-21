@@ -11,49 +11,62 @@
 ;; Contract SampleTactContract functions
 ;;
 
-(slice, int) $SampleTactContract$_contract_init(slice $owner) impure inline_ref {
-    var (($self'owner, $self'counter)) = (null(), null());
+(slice, int, slice) $SampleTactContract$_contract_init(slice $owner) impure inline_ref {
+    var (($self'owner, $self'counter, $self'inputMsg)) = (null(), null(), null());
     $self'owner = $owner;
     $self'counter = 0;
-    return ($self'owner, $self'counter);
+    $self'inputMsg = __gen_slice_string_96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7();
+    return ($self'owner, $self'counter, $self'inputMsg);
 }
 
-((slice, int), ()) $SampleTactContract$_fun_add((slice, int) $self, int $v) impure inline_ref {
-    var (($self'owner, $self'counter)) = $self;
+((slice, int, slice), ()) $SampleTactContract$_fun_add((slice, int, slice) $self, int $v) impure inline_ref {
+    var (($self'owner, $self'counter, $self'inputMsg)) = $self;
     var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
     throw_unless(4429, ( __tact_slice_eq_bits($self'owner, $ctx'sender) ));
     $self'counter = ($self'counter + $v);
-    return (($self'owner, $self'counter), ());
+    return (($self'owner, $self'counter, $self'inputMsg), ());
 }
 
-((slice, int), int) $SampleTactContract$_fun_counter((slice, int) $self) impure inline_ref {
-    var (($self'owner, $self'counter)) = $self;
-    return (($self'owner, $self'counter), $self'counter);
+((slice, int, slice), int) $SampleTactContract$_fun_counter((slice, int, slice) $self) impure inline_ref {
+    var (($self'owner, $self'counter, $self'inputMsg)) = $self;
+    return (($self'owner, $self'counter, $self'inputMsg), $self'counter);
+}
+
+((slice, int, slice), slice) $SampleTactContract$_fun_inputMsg((slice, int, slice) $self) impure inline_ref {
+    var (($self'owner, $self'counter, $self'inputMsg)) = $self;
+    return (($self'owner, $self'counter, $self'inputMsg), $self'inputMsg);
 }
 
 ;;
 ;; Receivers of a Contract SampleTactContract
 ;;
 
-(((slice, int)), ()) $SampleTactContract$_internal_binary_Add((slice, int) $self, (int) $msg) impure inline {
-    var ($self'owner, $self'counter) = $self;
+(((slice, int, slice)), ()) $SampleTactContract$_internal_binary_Add((slice, int, slice) $self, (int) $msg) impure inline {
+    var ($self'owner, $self'counter, $self'inputMsg) = $self;
     var ($msg'amount) = $msg;
-    ($self'owner, $self'counter)~$SampleTactContract$_fun_add($msg'amount);
-    return (($self'owner, $self'counter), ());
+    ($self'owner, $self'counter, $self'inputMsg)~$SampleTactContract$_fun_add($msg'amount);
+    return (($self'owner, $self'counter, $self'inputMsg), ());
 }
 
-((slice, int), ()) $SampleTactContract$_internal_text_c4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae((slice, int) $self) impure inline {
-    var ($self'owner, $self'counter) = $self;
-    ($self'owner, $self'counter)~$SampleTactContract$_fun_add(1);
-    ($self'owner, $self'counter)~$SampleTactContract$_fun_reply(__gen_cell_comment_3e96a74bf6f672d7e00d5d9c31c1437327e624b173365dc10e024c6410eff184());
-    return (($self'owner, $self'counter), ());
+((slice, int, slice), ()) $SampleTactContract$_internal_text_c4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae((slice, int, slice) $self) impure inline {
+    var ($self'owner, $self'counter, $self'inputMsg) = $self;
+    ($self'owner, $self'counter, $self'inputMsg)~$SampleTactContract$_fun_add(1);
+    ($self'owner, $self'counter, $self'inputMsg)~$SampleTactContract$_fun_reply(__gen_cell_comment_3e96a74bf6f672d7e00d5d9c31c1437327e624b173365dc10e024c6410eff184());
+    return (($self'owner, $self'counter, $self'inputMsg), ());
 }
 
-(((slice, int)), ()) $SampleTactContract$_internal_binary_Deploy((slice, int) $self, (int) $deploy) impure inline {
-    var ($self'owner, $self'counter) = $self;
+((slice, int, slice), ()) $SampleTactContract$_internal_any_text((slice, int, slice) $self, slice $str) impure inline {
+    var ($self'owner, $self'counter, $self'inputMsg) = $self;
+    $self'inputMsg = $str;
+    ($self'owner, $self'counter, $self'inputMsg)~$SampleTactContract$_fun_reply(__gen_cell_comment_59e24335ba60978f0236223a8f2592a50231afd9cf8182ee684503369c7627b2());
+    return (($self'owner, $self'counter, $self'inputMsg), ());
+}
+
+(((slice, int, slice)), ()) $SampleTactContract$_internal_binary_Deploy((slice, int, slice) $self, (int) $deploy) impure inline {
+    var ($self'owner, $self'counter, $self'inputMsg) = $self;
     var ($deploy'queryId) = $deploy;
-    ($self'owner, $self'counter)~$SampleTactContract$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
-    return (($self'owner, $self'counter), ());
+    ($self'owner, $self'counter, $self'inputMsg)~$SampleTactContract$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'owner, $self'counter, $self'inputMsg), ());
 }
 
 ;;
@@ -63,6 +76,12 @@
 _ %counter() method_id(104984) {
     var self = $SampleTactContract$_contract_load();
     var res = self~$SampleTactContract$_fun_counter();
+    return res;
+}
+
+_ %inputMsg() method_id(112733) {
+    var self = $SampleTactContract$_contract_load();
+    var res = self~$SampleTactContract$_fun_inputMsg();
     return res;
 }
 
@@ -76,7 +95,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmYzQHN2n6D1zEBuJyBnJrnmhQWzgZWhaNppmwsAFW4kNi";
+    return "ipfs://QmQCxH5iAhkftNBPRW6GbkHDHB75SDSL9dU9kCVyRBitEV";
 }
 
 _ lazy_deployment_completed() method_id {
@@ -87,7 +106,7 @@ _ lazy_deployment_completed() method_id {
 ;; Routing of a Contract SampleTactContract
 ;;
 
-((slice, int), int) $SampleTactContract$_contract_router_internal((slice, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+((slice, int, slice), int) $SampleTactContract$_contract_router_internal((slice, int, slice) self, int msg_bounced, slice in_msg) impure inline_ref {
     ;; Handle bounced messages
     if (msg_bounced) {
         return (self, true);
@@ -121,6 +140,10 @@ _ lazy_deployment_completed() method_id {
         ;; Receive "increment" message
         if (text_op == 0xc4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae) {
             self~$SampleTactContract$_internal_text_c4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae();
+            return (self, true);
+        }
+        if (slice_bits(in_msg) >= 32) {
+            self~$SampleTactContract$_internal_any_text(in_msg.skip_bits(32));
             return (self, true);
         }
     }

@@ -13,7 +13,7 @@ import { prepareTactDeployment } from "@tact-lang/deployer";
     // Parameters
     let testnet = true;
     let packageName = "sample_SampleTactContract.pkg";
-    let owner = Address.parse("0QD8d5vx-7hiviuMMCU_xXHyg9PToCHgQB1MwcTkgG7dIbkt");
+    let owner = Address.parse("0QAOGWuHwLO78FY9W4rk1hbMdI_kQKIEqAWRwmbu47mxanoj");
     let init = await SampleTactContract.init(owner);
     let contract_address = contractAddress(0, init);
 
@@ -25,4 +25,5 @@ import { prepareTactDeployment } from "@tact-lang/deployer";
     let contract = await SampleTactContract.fromAddress(contract_address);
     let contract_open = await client.open(contract);
     console.log("Counter Value: " + (await contract_open.getCounter()));
+    console.log("InputMsg Value: " + (await contract_open.getInputMsg()));
 })();

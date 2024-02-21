@@ -1,2 +1,8 @@
+;; String ""
+slice __gen_slice_string_96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7() asm "B{b5ee9c724101010100020000004cacb9cd} B>boc <s PUSHSLICE";
+
 ;; Comment "incremented"
 cell __gen_cell_comment_3e96a74bf6f672d7e00d5d9c31c1437327e624b173365dc10e024c6410eff184() asm "B{b5ee9c7241010101001100001e00000000696e6372656d656e7465648430bf20} B>boc PUSHREF";
+
+;; Comment "saved"
+cell __gen_cell_comment_59e24335ba60978f0236223a8f2592a50231afd9cf8182ee684503369c7627b2() asm "B{b5ee9c7241010101000b00001200000000736176656469079d10} B>boc PUSHREF";

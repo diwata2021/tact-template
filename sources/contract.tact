@@ -8,10 +8,13 @@ contract SampleTactContract with Deployable {
 
     owner: Address;
     counter: Int as uint32;
+    // add msg to store a input message
+    inputMsg: String;
 
     init(owner: Address) {
         self.owner = owner;
         self.counter = 0;
+        self.inputMsg = "";
     }
 
     fun add(v: Int) {
@@ -33,7 +36,18 @@ contract SampleTactContract with Deployable {
         self.reply("incremented".asComment());
     }
 
+    // Add a receive function to accept message function then save it to input msg
+    receive(str: String) {
+        self.inputMsg = str;
+        self.reply("saved".asComment());
+    }
+
     get fun counter(): Int {
         return self.counter;
+    }
+
+    // Add a getter function to get the input msg
+    get fun inputMsg(): String {
+        return self.inputMsg;
     }
 }
