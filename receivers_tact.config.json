@@ -1,0 +1,10 @@
+{
+    "projects": [{
+        "name": "sample",
+        "path": "./sources/receiversContractV2.tact",
+        "output": "./sources/output",
+        "options":{
+            
+        }
+    }]
+}

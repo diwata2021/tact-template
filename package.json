@@ -5,7 +5,11 @@
     "test": "jest",
     "deploy": "ts-node ./sources/contract.deploy.ts",
     "read": "ts-node ./sources/contract.read.ts",
-    "write": "ts-node ./sources/contract.write.ts"
+    "write": "ts-node ./sources/contract.write.ts",
+    "build_receivers": "tact --config ./receivers_tact.config.json",
+    "deploy_receivers": "ts-node ./sources/receiversContractV2.deploy.ts",
+    "read_receivers": "ts-node ./sources/receiversContractV2.read.ts",
+    "write_receivers": "ts-node ./sources/receiversContractV2.write.ts"
   },
   "dependencies": {
     "@tact-lang/compiler": "^1.1.5",
